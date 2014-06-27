@@ -1,6 +1,6 @@
 # PostgreSQL 9.4 beta
 # 
-# Version 0.1
+# 
 
 FROM ubuntu:14.04
 
@@ -12,7 +12,7 @@ RUN apt-get update -qq
 
 RUN apt-get install wget -qq
 
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main 9.4" > /etc/apt/sources.list.d/pgdg.list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main 9.4" > /etc/apt/sources.list.d/pgdg.list
 
 RUN gpg --keyserver keys.gnupg.net --recv-keys ACCC4CF8
 
