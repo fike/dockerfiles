@@ -14,14 +14,17 @@ and rebuild container.
 
 ```bash
 # Rebuild container
+
 $docker.io build --rm --no-cache -t="debian-postgresql-9.4" .
 ```
 ###To use
 
 ```bash
 # Run 
+
 $docker.io run -d -p 0.0.0.0:5432:5432 debian-postgresql-9.4
 
 # Or run and link with another container
+
 $docker.io run -d -p 0.0.0.0:5432:5432 --link debian-postgresql-9.4:other_container
 ```
