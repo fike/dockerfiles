@@ -1,4 +1,4 @@
-# PostgreSQL image containers based Debian Wheezy
+# PostgreSQL based Debian Wheezy
 
 This respository is specified to use some PostgreSQL version based in a Debian 
 Wheezy. Here has only Dockerfiles and scripts to build containers. So, if you 

@@ -1,4 +1,4 @@
-# PostgreSQL image containers based Ubuntu Trusty
+# PostgreSQL based Ubuntu Trusty
 
 This respository is specified to use some PostgreSQL version based in the 
 Ubuntu Trusty. Here has only Dockerfiles and scripts to build containers. 
