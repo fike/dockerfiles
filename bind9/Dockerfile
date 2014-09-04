@@ -26,7 +26,7 @@ RUN chmod 775 /var/run/named
 
 RUN chown root:bind /var/run/named > /dev/nul 2>&1
 
-ADD zones.pgbr.master /etc/bind/zones.pgbr.master
+ADD zones.site.master /etc/bind/zones.site.master
 
 ADD db.site.com /etc/bind/zones/db.site.com
 
