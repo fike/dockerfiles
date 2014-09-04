@@ -1,0 +1,9 @@
+// Master zones
+zone "site.com" {
+        type master;
+        file "/etc/bind/zones/db.site.com";
+        notify yes;
+        allow-update { none; };
+        allow-transfer { XXX.XXX.XXX.XXX; };
+};
+
