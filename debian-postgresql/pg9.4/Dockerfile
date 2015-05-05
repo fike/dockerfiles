@@ -21,15 +21,15 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq
+RUN apt-get update
 
-# If you need use a specific locale, you can change commands below. e.g. pt_BR.UTF-8
-RUN echo "locales locales/locales_to_be_generated multiselect pt_BR.UTF-8 UTF-8" | debconf-set-selections &&\
-    echo "locales locales/default_environment_locale select pt_BR.UTF-8" | debconf-set-selections
+# If you need use a specific locale, you can change commands below. e.g. en_US.UTF-8
+RUN echo "locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8" | debconf-set-selections &&\
+    echo "locales locales/default_environment_locale select en_US.UTF-8" | debconf-set-selections
 
 RUN apt-get install locales -qq
 
-ENV LC_ALL pt_BR.UTF-8
+ENV LC_ALL en_US.UTF-8
 
 RUN apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 -y
 
