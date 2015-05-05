@@ -1,10 +1,23 @@
-# PostgreSQL 9.4 beta
+# VERSION: 	0.3
+# DESCRIPTION: 	Create the PostgreSQL 9.4 Databasee in a container 
+# AUTHOR: 	Fernando Ike (fike@midstorm.org)
+# COMMENTS: 
+#    This file describe how to install PostgreSQL with main 
+#    dependencies installed.
+# USAGE:
+#    # Download PostgreSQL 9.4 Dockerfile
+#    wget https://raw.githubusercontent.com/fike/dockerfiles/master/debian-postgresql/9.4/Dockerfile
+#    
+#    # Build PostgreSQL image
+#    docker build -t postgresql-9.4 
 #
+#    docker run -v /var/lib/postgresql/9.4:/var/lib/postgresql/9.4 \ 
+#    postgresql-9.4
 #
-# 
-FROM debian:wheezy
+#  
+FROM debian:jessie
 
-MAINTAINER Fernando Ike de Oliveira <fike@midstorm.org>
+MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -16,11 +29,11 @@ RUN apt-get update -qq
 
 RUN apt-get install wget -qq
 
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main 9.4" > /etc/apt/sources.list.d/pgdg.list
+#RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main 9.4" > /etc/apt/sources.list.d/pgdg.list
 
-RUN gpg --keyserver keys.gnupg.net --recv-keys ACCC4CF8
+#RUN gpg --keyserver keys.gnupg.net --recv-keys ACCC4CF8
 
-RUN gpg --export --armor ACCC4CF8|apt-key add -
+#RUN gpg --export --armor ACCC4CF8|apt-key add -
 
 RUN apt-get update
 

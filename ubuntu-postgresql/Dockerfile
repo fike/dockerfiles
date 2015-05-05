@@ -22,14 +22,13 @@ RUN apt-get update
 
 # If you use another language, change the package. e.g. language-pack-es
 # and run update-locale with language variable.
-RUN apt-get install language-pack-en -y
+RUN apt-get install language-pack-pt -y
 
-RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
+RUN update-locale LANG=pt_BR.UTF-8 LC_MESSAGES=POSIX
 
 RUN apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 -y
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/
-
 
 USER postgres
 
