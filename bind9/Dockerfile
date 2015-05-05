@@ -2,7 +2,7 @@
 #
 #
 #
-FROM debian:wheezy
+FROM debian:jessie
 
 MAINTAINER Fernando Ike de Oliveira <fike@midstorm.org>
 
