@@ -21,7 +21,7 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update
+RUN apt-get update -qq
 
 # If you need use a specific locale, you can change commands below. e.g. en_US.UTF-8
 RUN echo "locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8" | debconf-set-selections &&\

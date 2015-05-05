@@ -21,6 +21,8 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update -qq
+
 RUN apt-get install wget -qq
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main 9.2" > /etc/apt/sources.list.d/pgdg.list

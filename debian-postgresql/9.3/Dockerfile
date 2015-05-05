@@ -21,7 +21,7 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update
+RUN apt-get update -qq
 
 RUN apt-get install wget -qq
 
