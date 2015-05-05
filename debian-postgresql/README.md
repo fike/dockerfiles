@@ -27,7 +27,7 @@ The image 9.1 version is oficial Debian (Wheezy) package.
 
 ## Using Docker Hub images
 
-**9.4 Beta**
+**9.4**
 
 ```bash
 $docker.io pull fike/debian-postgresql:9.4
