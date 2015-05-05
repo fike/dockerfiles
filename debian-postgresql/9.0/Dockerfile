@@ -21,6 +21,14 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get install wget -qq
+
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main 9.0" > /etc/apt/sources.list.d/pgdg.list
+
+RUN gpg --keyserver keys.gnupg.net --recv-keys ACCC4CF8
+
+RUN gpg --export --armor ACCC4CF8|apt-key add -
+
 RUN apt-get update
 
 # If you need use a specific locale, you can change commands below. e.g. en_US.UTF-8
