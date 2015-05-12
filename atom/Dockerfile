@@ -16,6 +16,8 @@ FROM debian:jessie
 
 MAINTAINER Fernando Ike <fike@midstorm.org>
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update -qq
 
 RUN apt-get install wget curl git gconf2 gconf-service libgtk2.0-0 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils -y -qq
