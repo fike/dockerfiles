@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+
+dependencies: 
+  cache_directories:
+    - "~/docker-atom"
+  override:
+    - docker info
+    - if [[ -e ~/docker-atom/image.tar ]]; then docker load --input ~/docker-atom/image.tar; fi
+    - docker build -t fike/dockerfiles/atom .
+    - mkdir -p  ~/docker-atom; docker save --output ~/docker-atom/image.tar fike/atom
+
+test:
+  override:
+    - docker run -it fike/atom atom --version
