@@ -8,7 +8,7 @@ dependencies:
   override:
     - docker info
     - if [[ -e ~/docker-atom/image.tar ]]; then docker load --input ~/docker-atom/image.tar; fi
-    - docker build -t fike/dockerfiles/atom .
+    - docker build -t fike/atom .
     - mkdir -p  ~/docker-atom; docker save --output ~/docker-atom/image.tar fike/atom
 
 test:
