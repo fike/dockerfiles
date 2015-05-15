@@ -28,4 +28,6 @@ RUN dpkg -i atom-amd64.deb
 
 RUN rm -f atom-amd64.deb
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 CMD /usr/bin/atom --foreground --log-file /var/log/atom.log && tail -f /var/log/atom.log 
