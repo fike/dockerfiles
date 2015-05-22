@@ -1,7 +1,9 @@
-# PostgreSQL based Debian Wheezy
+[![Circle CI](https://circleci.com/gh/fike/docker-debian-pg.svg?style=svg)](https://circleci.com/gh/fike/docker-debian-pg)
+
+# PostgreSQL based Debian Jessie
 
 This respository is specified to use some PostgreSQL version based in a Debian 
-Wheezy. Here has only Dockerfiles and scripts to build containers. So, if you 
+Jessie. Here has only Dockerfiles and scripts to build containers. So, if you 
 want just to use the container the Postgresql version specific, you can find
 in Docker Hub. 
 
@@ -23,7 +25,7 @@ Please change password if you think to use in production and all PostgreSQL
 Dockerfiles use UTF-8 environment.
 
 The images with 9.4, 9.3, 9.2, 9,0 version are deb packages by [PGDG](https://wiki.postgresql.org/wiki/Apt). 
-The image 9.1 version is oficial Debian (Wheezy) package. 
+The image 9.1 version is oficial Debian (Jessie) package. 
 
 ## Using Docker Hub images
 

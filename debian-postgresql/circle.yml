@@ -1,0 +1,15 @@
+machine:
+  services:
+    - docker
+dependencies:
+  pre: 
+    - sudo service postgresql stop
+  cache_directories:
+    - "~/debian-postgresql"
+  override:
+    - docker info
+    - for i in $(ls -1 ~/docker-debian-pg |egrep --color "[0-9]{1,2}\.[0-9]{1,2}.*"); do if [[ -e ~/debian-postgresql/$i.tar ]]; then docker load --input ~/debian-postgresql/$i.tar; fi && docker build -t fike/debian-postgresql:$i $i && mkdir -p ~/debian-postgresql && docker save --output ~/debian-postgresql/$i.tar fike/debian-postgresql:$i ; done
+
+test:
+  override:
+    - for i in $(ls -1 ~/docker-debian-pg|egrep --color "[0-9]{1,2}\.[0-9]{1,2}.*"); do docker run -d --name $i fike/debian-postgresql:$i  && docker run -it --net="container:$i" -e PGPASSWORD="foobar" fike/debian-postgresql:$i psql -h 127.0.0.1 -p 5432  -U postgres --command "SELECT version();" && docker stop $i; done

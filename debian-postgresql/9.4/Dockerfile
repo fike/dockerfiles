@@ -15,22 +15,13 @@
 #    postgresql-9.4
 #
 #  
-FROM debian:jessie
+FROM fike/jessie-locale:en_US
 
 MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV LC_ALL en_US.UTF-8
-
-RUN apt-get update -qq
-
-# If you need use a specific locale, you can change commands below. e.g. en_US.UTF-8
-RUN echo "locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8" | debconf-set-selections &&\
-    echo "locales locales/default_environment_locale select en_US.UTF-8" | debconf-set-selections
-
-RUN apt-get install locales -qq
-
+RUN apt-get update -qq && apt-get upgrade -y
 
 RUN apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 -y
 
