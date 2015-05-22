@@ -16,19 +16,13 @@
 #
 #   
 
-FROM ubuntu:vivid
+FROM fike/ubuntu-locales:en_US
 
 MAINTAINER Fernando Ike de Oliveira <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq
-
-# If you use another language, change the package. e.g. language-pack-es
-# and run update-locale with language variable.
-RUN apt-get install language-pack-en -y
-
-RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
+RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 -y
 
@@ -42,8 +36,6 @@ RUN  /etc/init.d/postgresql start &&\
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
-
-RUN sed -i 's/ssl\ =\ true/\ssl\ =\ false/g' /etc/postgresql/9.4/main/postgresql.conf
 
 EXPOSE 5432
 
