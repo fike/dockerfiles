@@ -1,6 +1,8 @@
-# VERSION:      0.3
-# DESCRIPTION:  Create the PostgreSQL 9.4 Database in a container 
-# AUTHOR:       Fernando Ike (fike@midstorm.org)
+# vim:set ft=dockerfile:
+#
+# VERSION: 	0.3
+# DESCRIPTION: 	Create the PostgreSQL 9.4 Databasee in a container 
+# AUTHOR: 	Fernando Ike (fike@midstorm.org)
 # COMMENTS: 
 #    This file describe how to install PostgreSQL with main 
 #    dependencies installed.
@@ -14,24 +16,29 @@
 #    docker run -v /var/lib/postgresql/9.4:/var/lib/postgresql/9.4 \ 
 #    postgresql-9.4
 #
-#   
+#  
+FROM fike/jessie-locale:en_US
 
-FROM fike/ubuntu-locales:pt_BR
-
-MAINTAINER Fernando Ike de Oliveira <fike@midstorm.org>
+MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq && apt-get upgrade -y
+RUN apt-get update -qq && \
+      apt-get upgrade -y
 
-RUN apt-get install postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 -y
+RUN apt-get install --no-install-recommends -y \ 
+      postgresql-9.4 \ 
+      postgresql-client-9.4 \
+      postgresql-contrib-9.4 
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/
-
-USER postgres
+RUN apt-get clean && \
+      apt-get autoremove --purge -y && \
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN  /etc/init.d/postgresql start &&\
-    psql --command "ALTER USER postgres with password 'foobar';"
+    su postgres -c "psql --command \"ALTER USER postgres with password 'foobar';\" "
+
+USER postgres
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 
@@ -42,4 +49,3 @@ EXPOSE 5432
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
-
