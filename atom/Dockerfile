@@ -18,16 +18,29 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq
+RUN apt-get update -y
 
-RUN apt-get install wget curl git gconf2 gconf-service libgtk2.0-0 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils -y -qq
+RUN apt-get install --no-install-recommends wget \
+      curl \ 
+      git  \
+      gconf2 \
+      gconf-service \
+      libgtk2.0-0 
+      libnotify4 \
+      libxtst6 \ 
+      libnss3 \
+      python \
+      gvfs-bin \
+      xdg-utils -y 
 
-RUN DOWNLOAD=$(curl -s https://github.com/atom/atom/releases|sed -n -e 's/.*\(atom\/atom\/releases\/download\/v[0-9].*\/atom-amd64.deb*\).*/\1/p' | head -n1) && wget -c https://github.com/$DOWNLOAD
+RUN DOWNLOAD=$(curl -s https://github.com/atom/atom/releases|sed -n -e 's/.*\(atom\/atom\/releases\/download\/v[0-9].*\/atom-amd64.deb*\).*/\1/p' | head -n1) && \ 
+      curl -O --location https://github.com/$DOWNLOAD
 
 RUN dpkg -i atom-amd64.deb 
 
-RUN rm -f atom-amd64.deb
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN rm -f atom-amd64.deb && \
+      apt-get clean && \
+      apt-get autoremove --purge -y && \
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD /usr/bin/atom --foreground --log-file /var/log/atom.log && tail -f /var/log/atom.log 
