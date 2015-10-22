@@ -9,9 +9,7 @@ dependencies:
     - "~/container"
   override:
     - docker info
-    - for i in $(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*"); do if [[ -e ~/container/$i.tar ]]; then docker load --input ~/container/$i.tar; fi && docker build -t fike/postgres:$i ~/dockerfiles/postgres/$i && mkdir -p ~/container && docker save --output ~/container/$i.tar fike/postgres:$i; done
-
+    - ~/dockerfiles/tests/postgres.sh build
 test:
   override:
-    - for i in $(ls -1 ~/dockerfiles/postgres | egrep "[0-9]{1,2}\.[0-9]{1,2}.*"); do docker run -d --name $i fike/postgres:$i && docker run -it --net="container:$i" -e PGPASSWORD="foobar" fike/postgres:$i psql -h 127.0.0.1 -p 5432 -U postgres --command "SELECT version();" && docker stop $i; done
-   
+    - ~/dockerfiles/tests/postgres.sh run_test
