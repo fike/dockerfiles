@@ -25,7 +25,7 @@ RUN apt-get install -y --no-install-recommends curl \
       git  \
       gconf2 \
       gconf-service \
-      libgtk2.0-0 
+      libgtk2.0-0 \
       libnotify4 \
       libxtst6 \ 
       libnss3 \
