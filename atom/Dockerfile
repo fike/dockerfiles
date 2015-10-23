@@ -18,10 +18,10 @@ MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y
+RUN apt-get update -y && \
+      apt-get dist-upgrade -y
 
-RUN apt-get install --no-install-recommends wget \
-      curl \ 
+RUN apt-get install -y --no-install-recommends curl \ 
       git  \
       gconf2 \
       gconf-service \
@@ -31,7 +31,7 @@ RUN apt-get install --no-install-recommends wget \
       libnss3 \
       python \
       gvfs-bin \
-      xdg-utils -y 
+      xdg-utils 
 
 RUN DOWNLOAD=$(curl -s https://github.com/atom/atom/releases|sed -n -e 's/.*\(atom\/atom\/releases\/download\/v[0-9].*\/atom-amd64.deb*\).*/\1/p' | head -n1) && \ 
       curl -O --location https://github.com/$DOWNLOAD
