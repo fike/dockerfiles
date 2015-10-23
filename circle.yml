@@ -9,7 +9,13 @@ dependencies:
     - "~/container"
   override:
     - docker info
-    - ~/dockerfiles/tests/postgres.sh build
+    - ~/dockerfiles/tests/postgres.sh build:
+        parallel: true
+    - ~/dockerfiles/tests/atom.sh build:
+        parallel: true
 test:
   override:
-    - ~/dockerfiles/tests/postgres.sh run_test
+    - ~/dockerfiles/tests/postgres.sh run_test:
+        parallel: true
+    - ~/dockerfiles/tests/atom.sh run_test:
+        parallel: true
