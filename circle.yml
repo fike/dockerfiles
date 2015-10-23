@@ -8,14 +8,13 @@ dependencies:
   cache_directories:
     - "~/container"
   override:
-    - docker info
-    parallel: true
-    files:
-      - ~/dockerfiles/tests/postgres.sh build
-      - ~/dockerfiles/tests/atom build
+    - ~/dockerfiles/tests/postgres.sh build:
+        parallel: true
+    - ~/dockerfiles/tests/atom.sh build:
+        parallel: true
 test:
   override:
-    parallel: true
-      files:
-        - ~/dockerfiles/tests/postgres.sh run_test
-        - ~/dockerfiles/tests/atom.sh run_test
+    - ~/dockerfiles/tests/postgres.sh run_test:
+        parallel: true
+    - ~/dockerfiles/tests/atom.sh run_test:
+        parallel: true

@@ -33,10 +33,10 @@ RUN apt-get install -y --no-install-recommends curl \
       gvfs-bin \
       xdg-utils 
 
-RUN DOWNLOAD=$(curl -s https://github.com/atom/atom/releases|sed -n -e 's/.*\(atom\/atom\/releases\/download\/v[0-9].*\/atom-amd64.deb*\).*/\1/p' | head -n1) && \ 
-      curl -O --location https://github.com/$DOWNLOAD
+RUN curl -k -O --location https://atom.io/download/deb && \
+      mv deb atom-amd64.deb
 
-RUN dpkg -i atom-amd64.deb 
+RUN dpkg -i *.deb 
 
 RUN rm -f atom-amd64.deb && \
       apt-get clean && \
