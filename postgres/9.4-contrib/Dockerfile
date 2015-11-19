@@ -17,33 +17,25 @@
 #    postgresql-9.4
 #
 #  
-FROM fike/debian:jessie.en_US
+FROM fike/postgresql:9.4
 
 MAINTAINER Fernando Ike <fike@midstorm.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+USER root 
+
 RUN apt-get update -qq && \
       apt-get upgrade -y
 
 RUN apt-get install --no-install-recommends -y \ 
-      postgresql-9.4 \ 
-      postgresql-client-9.4 \
+      postgresql-contrib-9.4 
 
 RUN apt-get clean && \
       apt-get autoremove --purge -y && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN  /etc/init.d/postgresql start &&\
-    su postgres -c "psql --command \"ALTER USER postgres with password 'foobar';\" "
-
 USER postgres
-
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
-
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
-
-EXPOSE 5432
 
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
