@@ -28,7 +28,7 @@ RUN apt-get update -qq && \
 
 RUN apt-get install --no-install-recommends -y \ 
       postgresql-9.4 \ 
-      postgresql-client-9.4 \
+      postgresql-client-9.4 
 
 RUN apt-get clean && \
       apt-get autoremove --purge -y && \
