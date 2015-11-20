@@ -7,7 +7,7 @@ CIRCLE_NODE_INDEX=1
 
 
 build(){
-for i in $(ls -1 ~/d/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*") 
+for i in $(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*") 
 do 
   if [ $(($CONTAINERS % $CIRCLE_NODE_TOTAL)) -eq $CIRCLE_NODE_INDEX ]
   then
