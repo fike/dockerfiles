@@ -2,24 +2,28 @@
 
 RUN=()
 CONTAINERS=0
+CIRCLE_NODE_TOTAL=4
+CIRCLE_NODE_INDEX=1
+
 
 build(){
-for i in $(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*") 
+for i in $(ls -1 ~/d/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*") 
 do 
   if [ $(($CONTAINERS % $CIRCLE_NODE_TOTAL)) -eq $CIRCLE_NODE_INDEX ]
   then
-    RUN+=$i
+    RUN+=" $i"
     fi
   ((CONTAINERS=CONTAINERS+1)) 
-
+  
+done
   if [[ -e ~/container/${RUN[@]}.tar ]] 
-    then docker load --input ~/container/${RUN[@]}.tar 
-    fi
+  then 
+    docker load --input ~/container/${RUN[@]}.tar 
+   fi
       docker build --rm -t fike/postgres:${RUN[@]} ~/dockerfiles/postgres/${RUN[@]} 
       mkdir -p ~/container 
       docker save --output ~/container/${RUN[@]}.tar fike/postgres:${RUN[@]}
-   
-done
+  echo ${RUN[@]}
 }
 
 run_test(){
