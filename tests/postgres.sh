@@ -2,12 +2,10 @@
 
 RUN=()
 CONTAINERS=0
-CIRCLE_NODE_TOTAL=4
-CIRCLE_NODE_INDEX=1
-
+VERSIONS=$(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*"|sort)
 
 build(){
-for i in $(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*") 
+for i in $(echo $VERSIONS) 
 do 
   if [ $(($CONTAINERS % $CIRCLE_NODE_TOTAL)) -eq $CIRCLE_NODE_INDEX ]
   then
@@ -16,22 +14,25 @@ do
   ((CONTAINERS=CONTAINERS+1)) 
   
 done
-  if [[ -e ~/container/${RUN[@]}.tar ]] 
+for y $(echo ${RUN[@]})
+do
+  if [[ -e ~/container/$y.tar ]]
   then 
-    docker load --input ~/container/${RUN[@]}.tar 
+    docker load --input ~/container/$y.tar
    fi
-      docker build --rm -t fike/postgres:${RUN[@]} ~/dockerfiles/postgres/${RUN[@]} 
+      echo "docker build --rm -t fike/postgres:$y ~/dockerfiles/postgres/$y" 
       mkdir -p ~/container 
-      docker save --output ~/container/${RUN[@]}.tar fike/postgres:${RUN[@]}
-  echo ${RUN[@]}
+      docker save --output ~/container/$y.tar fike/postgres:$y
+done
+
 }
 
 run_test(){
-for i in $(ls -1 ~/dockerfiles/postgres | egrep "[0-9]{1,2}\.[0-9]{1,2}.*"); 
-  do docker run -d --name ${RUN[@]} fike/postgres:${RUN[@]} && 
-    docker run -it --net="container:${RUN[@]}" -e PGPASSWORD="foobar" fike/postgres:${RUN[@]}  \
+for i in $(echo ${RUN[@]}); 
+  do docker run -d --name $y fike/postgres:$y && 
+    docker run -it --net="container:${RUN[@]}" -e PGPASSWORD="foobar" fike/postgres:$y  \
     psql -h 127.0.0.1 -p 5432 -U postgres --command "SELECT version();" 
-    docker stop ${RUN[@]}; done
+    docker stop $y; done
 }
 
 case "$1" in
