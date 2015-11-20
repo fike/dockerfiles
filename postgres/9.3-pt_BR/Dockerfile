@@ -1,5 +1,5 @@
 
-FROM fike/debian:jessie.en_US
+FROM fike/debian:jessie.pt_BR
 
 MAINTAINER Fernando Ike <fike@midstorm.org>
 
