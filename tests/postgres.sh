@@ -14,7 +14,7 @@ do
   ((CONTAINERS=CONTAINERS+1)) 
   
 done
-for y $(echo ${RUN[@]})
+for y in $(echo ${RUN[@]})
 do
   if [[ -e ~/container/$y.tar ]]
   then 
