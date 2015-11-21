@@ -4,23 +4,27 @@ RUN=()
 CONTAINERS=0
 VERSIONS=$(ls -1 ~/dockerfiles/postgres |egrep "[0-9]{1,2}\.[0-9]{1,2}.*"|sort)
 
-build(){
-for i in $(echo $VERSIONS) 
-do 
+for i in $(echo $VERSIONS)
+do
   if [ $(($CONTAINERS % $CIRCLE_NODE_TOTAL)) -eq $CIRCLE_NODE_INDEX ]
   then
     RUN+=" $i"
     fi
-  ((CONTAINERS=CONTAINERS+1)) 
-  
+  ((CONTAINERS=CONTAINERS+1))
+
 done
+
+
+
+build(){
+
 for y in $(echo ${RUN[@]})
 do
   if [[ -e ~/container/$y.tar ]]
   then 
     docker load --input ~/container/$y.tar
    fi
-      echo "docker build --rm -t fike/postgres:$y ~/dockerfiles/postgres/$y" 
+      docker build --rm -t fike/postgres:$y ~/dockerfiles/postgres/$y 
       mkdir -p ~/container 
       docker save --output ~/container/$y.tar fike/postgres:$y
 done
