@@ -28,9 +28,9 @@ done
 }
 
 run_test(){
-for i in $(echo ${RUN[@]}); 
+for y in $(echo ${RUN[@]}); 
   do docker run -d --name $y fike/postgres:$y && 
-    docker run -it --net="container:${RUN[@]}" -e PGPASSWORD="foobar" fike/postgres:$y  \
+    docker run -it --net="container:$y" -e PGPASSWORD="foobar" fike/postgres:$y  \
     psql -h 127.0.0.1 -p 5432 -U postgres --command "SELECT version();" 
     docker stop $y; done
 }
