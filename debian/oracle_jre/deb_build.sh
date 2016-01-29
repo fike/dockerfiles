@@ -29,15 +29,20 @@
 
 CURL=$(which curl)
 CURL_PAR_CHECK="-s -I"
-URL="http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681"
 SED=$(which sed)
 SED_PAR="-n -e"
+UNIQ=$(which uniq)
 DPKG=$(which dpkg)
 DOCKER=$(which docker)
 BUILDDIR="/home/builder/java"
 JAVA_WORK_DIR="$HOME/java"
+#URL="http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681"
+URL=$($CURL -s "http://java.com/en/download/linux_manual.jsp" | $SED $SED_PAR 's/.*\(a\stitle\=.*\sLinux\sx64\".*\).*\(http:\/\/javadl\.sun.com\/webapps\/download\/AutoDL?BundleId\=[0-9]\{6\}\).*/\2/p'| $UNIQ)
+#curl -s  http://java.com/en/download/linux_manual.jsp | sed -n -e 's/.*\(a\stitle\=.*\sLinux\sx64\".*\).*\(http:\/\/javadl\.sun.com\/webapps\/download\/AutoDL?BundleId\=[0-9]\{6\}\).*/\2/p'| uniq
+
 
 function version(){
+
 REMOTE_VERSION=$($CURL $CURL_PAR_CHECK $URL| $SED $SED_PAR 's/.*\(jre\-[0-9]u[0-9].*\-linux\-x64\.tar\.gz*\).*/\1/p' 2> /dev/null)
 NUMBER_VERSION=$(echo $REMOTE_VERSION | $SED $SED_PAR 's/.*\([0-9]u[0-9]*\).*/\1/p')
 LOCAL_VERSION=$($DPKG -l|grep oracle | awk '{ print $3 }')
