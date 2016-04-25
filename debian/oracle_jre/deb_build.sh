@@ -37,7 +37,7 @@ DOCKER=$(which docker)
 BUILDDIR="/home/builder/java"
 JAVA_WORK_DIR="$HOME/java"
 #URL="http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681"
-URL=$($CURL -s "http://java.com/en/download/linux_manual.jsp" | $SED $SED_PAR 's/.*\(a\stitle\=.*\sLinux\sx64\".*\).*\(http:\/\/javadl\.sun.com\/webapps\/download\/AutoDL?BundleId\=[0-9]\{6\}\).*/\2/p'| $UNIQ)
+URL=$($CURL -s "http://java.com/en/download/linux_manual.jsp" | $SED $SED_PAR 's/.*\(a\stitle\=.*\sLinux\sx64\".*\).*\(http.*\/AutoDL?BundleId\=[0-9]\{6\}\).*/\2/p'| $UNIQ)
 #curl -s  http://java.com/en/download/linux_manual.jsp | sed -n -e 's/.*\(a\stitle\=.*\sLinux\sx64\".*\).*\(http:\/\/javadl\.sun.com\/webapps\/download\/AutoDL?BundleId\=[0-9]\{6\}\).*/\2/p'| uniq
 
 
