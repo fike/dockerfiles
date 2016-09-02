@@ -72,8 +72,9 @@ function check_version(){
 
 function build(){ 
   check_version 
-  JRE_FILE=$(find $JAVA_WORK_DIR -maxdepth 1 -name "jre*.tar.gz" -printf '%P\n' | sort | tail -n 1)
+  JRE_FILE=$(find $JAVA_WORK_DIR -maxdepth 1 -name "jre*.tar.gz" -printf '%P\n' | head -n 1)
   echo "Building Oracle JRE package"
+  echo $DOCKER run -it -v $JAVA_WORK_DIR:$BUILDDIR fike/debian:ora-jre fakeroot make-jpkg $JRE_FILE  
   $DOCKER run -it -v $JAVA_WORK_DIR:$BUILDDIR fike/debian:ora-jre fakeroot make-jpkg $JRE_FILE  
 }
   
