@@ -18,7 +18,7 @@ RUN apt-get install pkg-mozilla-archive-keyring -y && apt-get update -y
 RUN apt-get install -t jessie-backports --no-install-recommends \
       iceweasel \ 
       iceweasel-l10n-pt-br -y  && \
-      apt-get install --no-install-recommends \
+      apt-get install --no-install-recommends --no-install-suggests \
       icedtea-plugin \
       flashplugin-nonfree -y
 
