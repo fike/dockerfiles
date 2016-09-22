@@ -22,8 +22,6 @@ RUN echo "deb-src http://httpredir.debian.org/debian/ unstable main"  >> /etc/ap
 RUN echo "builder  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/builder && \
       useradd -m -s /bin/bash builder -G users
 
-USER builder
-
 RUN mkdir -p /home/builder/d
 
 WORKDIR /home/builder/d      
