@@ -22,7 +22,12 @@ RUN sed -i s/main/main\ non-free\ contrib/g /etc/apt/sources.list && \
       libxxf86vm1-dbg \
       build-essential && \
    apt-get clean && \
-   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+      apt-get autoremove --purge -y && \
+      rm -rf /var/lib/apt/lists/* \
+        /tmp/* \
+        /var/tmp/* \
+        /usr/share/man/??_* \
+        /usr/share/man/??
 
 RUN useradd -m -s /bin/bash builder -G users
 
