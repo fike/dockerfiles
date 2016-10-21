@@ -22,7 +22,8 @@ RUN sed -i s/main/main\ non-free\ contrib/g /etc/apt/sources.list && \
         libxxf86vm1 \ 
         libgl1-mesa-glx \ 
         libxxf86vm1-dbg \
-        build-essential && \
+        build-essential \
+        fakeroot && \
      apt-get clean && \
      apt-get autoremove --purge -y && \
      rm -rf /var/lib/apt/lists/* \
