@@ -10,7 +10,7 @@ DEBIANVERSION="jessie"
 function postgres(){
   for TAGVERSION in $(echo $TAGVERSIONS)
   do
-    for MINORVERSION in $(seq 1 5)
+    for MINORVERSION in $(seq 2 6)
     do 
       
       if [ "$TAGVERSION" = "en_US" ] 
@@ -78,7 +78,7 @@ EOF
 function contrib(){
   for TAGVERSION in $(echo $TAGVERSIONS)
   do
-    for MINORVERSION in $(seq 1 5)
+    for MINORVERSION in $(seq 2 6)
     do
 
       if [ "$TAGVERSION" = "en_US" ]
