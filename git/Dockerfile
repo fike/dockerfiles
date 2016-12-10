@@ -9,6 +9,7 @@ RUN apt-get update && \
       apt-get install -y --no-install-recommends  \
           --no-install-suggests \
           git \
+          openssh-client \
 	  ca-certificates
 
 RUN apt-get clean && \

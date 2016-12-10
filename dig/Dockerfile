@@ -12,11 +12,15 @@ RUN apt-get update -y && \
       apt-get upgrade -y && \
       apt-get install -y --no-install-recommends \
         --no-install-suggests \
-        bind9
+        dnsutils
 
 RUN mkdir -p /var/run/named /etc/bind/zones && \
       chmod 775 /var/run/named && \
       chown root:bind /var/run/named > /dev/nul 2>&1
+
+COPY zones /etc/bind/zones
+
+COPY name.conf.local /etc/bind/name.conf.local
 
 RUN apt-get clean && \
       apt-get autoremove --purge -y && \
