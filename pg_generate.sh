@@ -121,8 +121,6 @@ RUN apt-get clean && \
 
 USER postgres
 
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
 CMD ["/usr/lib/postgresql/$MAJORVERSION.$MINORVERSION/bin/postgres", "-D", "/var/lib/postgresql/$MAJORVERSION.$MINORVERSION/main", "-c", "config_file=/etc/postgresql/$MAJORVERSION.$MINORVERSION/main/postgresql.conf"]
 EOF
 
